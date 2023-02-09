@@ -1,5 +1,5 @@
 const database = () => {
-    const mysql = require("mysql2")
+    const mysql = require("mysql2/promise")
 
     const connect = () => {
         return mysql.createPool({
@@ -15,10 +15,10 @@ const database = () => {
         })
     }
 
-    const execute = (query) => {
-        connect().query(query, function (err, rows, fields){
-            if (err) {return err}
-            return rows
+    const execute = async (query, data) => {
+        await connect().query(query, data, function (err, rows, fields) {
+            if (err) {console.log(err)}
+            console.log(rows)
         })
     }
 
