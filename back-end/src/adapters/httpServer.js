@@ -6,9 +6,14 @@ const httpServer = () => {
         app.listen(port, () => {
             console.debug(message)
         })
+        middleware()
     }
 
-    const middleware = (path, handler) => {
+    const middleware = () => {
+        app.use(express.json())
+    }
+
+    const use = (path, handler) => {
         app.use(path, handler)
     }
 
@@ -30,6 +35,7 @@ const httpServer = () => {
 
     return {
         start,
+        use,
         get,
         post,
         put,
