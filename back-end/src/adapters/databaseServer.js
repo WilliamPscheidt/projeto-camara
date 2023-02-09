@@ -17,6 +17,7 @@ const database = () => {
 
     const execute = (query) => {
         connect().query(query, function (err, rows, fields){
+            if (err) {return err}
             return rows
         })
     }
