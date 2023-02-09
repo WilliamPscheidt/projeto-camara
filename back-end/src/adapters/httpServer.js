@@ -10,27 +10,27 @@ const httpServer = () => {
     }
 
     const middleware = () => {
-        app.use(express.json())
+        return app.use(express.json())
     }
 
     const use = (path, handler) => {
-        app.use(path, handler)
+        return app.use(path, handler)
     }
 
     const get = (path, handler) => {
-        app.get(path, handler)
+        return app.get(path, handler)
     }
 
     const post = (path, handler) => {
-        app.post(path, handler)
+        return app.post(path, handler)
     }
 
     const put = (path, handler) => {
-        app.put(path, handler)
+        return app.put(path, handler)
     }
 
     const del = (path, handler) => {
-        app.delete(path, handler)
+        return app.delete(path, handler)
     }
 
     return {
