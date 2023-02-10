@@ -25,7 +25,15 @@ module.exports = class CamaraController {
     }
 
     static async put(req, res) {
+        const {antigo_nome, nome, presidente, tecnico, telefone, email, endereco, cnpj, logo} = req.body
 
+        try {
+            await database.query("UPDATE camaras SET nome=?, presidente=?, técnico=?, telefone=?, email=?, endereço=?, cnpj=?, logo=? WHERE nome=?", 
+            [nome, presidente, tecnico, telefone, email, endereco, cnpj, logo, antigo_nome])
+            return res.send({success: "camara atualizada"})
+        } catch (error) {
+            return res.send({err: error})
+        }
     }
 
     static async del(req, res) {
