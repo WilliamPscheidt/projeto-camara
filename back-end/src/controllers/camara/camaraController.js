@@ -37,6 +37,14 @@ module.exports = class CamaraController {
     }
 
     static async del(req, res) {
-        
+        const {nome_camara} = req.body
+
+        try {
+            await database.query("DELETE FROM camaras where nome=?", 
+            [nome_camara])
+            return res.send({success: "camara excluída"})
+        } catch (error) {
+            return res.send({err: error})
+        }
     }
 }
