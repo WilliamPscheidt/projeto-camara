@@ -1,46 +1,42 @@
-const httpServer = () => {
-    const express = require("express")
-    const app = express()
+const express = require('express')
+const helmet = require("helmet");
 
-    const start = (port, message) => {
-        app.listen(port, () => {
-            console.debug(message)
+class HttpServer {
+    constructor() {
+        this.express = express()
+        this.middlewares()
+    }
+
+    async middlewares() {
+        this.express.use(express.json());
+        this.express.use(helmet());
+    }
+
+    async use(path, handler) {
+        this.express.use(path, handler)
+    }
+
+    async get(path, handler) {
+        this.express.get(path, handler)
+    }
+
+    async post(path, handler) {
+        this.express.post(path, handler)
+    }
+
+    async delete(path, handler) {
+        this.express.delete(path, handler)
+    }
+
+    async put(path, handler) {
+        this.express.put(path, handler)
+    }
+
+    async start() {
+        this.express.listen(3000, (err) => {
+            console.log("Server listening")
         })
-        middleware()
-    }
-
-    const middleware = () => {
-        return app.use(express.json())
-    }
-
-    const use = (path, handler) => {
-        return app.use(path, handler)
-    }
-
-    const get = (path, handler) => {
-        return app.get(path, handler)
-    }
-
-    const post = (path, handler) => {
-        return app.post(path, handler)
-    }
-
-    const put = (path, handler) => {
-        return app.put(path, handler)
-    }
-
-    const del = (path, handler) => {
-        return app.delete(path, handler)
-    }
-
-    return {
-        start,
-        use,
-        get,
-        post,
-        put,
-        del
     }
 }
 
-module.exports = httpServer()
+module.exports = new HttpServer

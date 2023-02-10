@@ -21,7 +21,7 @@ const router = () => {
     httpServer.get("/camara", CamaraController.get)
     httpServer.post("/camara", CamaraController.post)
     httpServer.put("/camara", CamaraController.put)
-    httpServer.del("/camara", CamaraController.del)
+    httpServer.delete("/camara", CamaraController.del)
 }
 
 module.exports = router
