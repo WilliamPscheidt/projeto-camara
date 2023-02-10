@@ -1,8 +1,8 @@
-const database = () => {
-    const mysql = require("mysql2/promise")
+const mysql = require("mysql2")
 
-    const connect = () => {
-        return mysql.createPool({
+class DatabaseServer {
+    constructor() {
+        this.pool = mysql.createPool({
             host: 'localhost',
             user: 'root',
             password: '',
@@ -13,19 +13,36 @@ const database = () => {
             idleTimeout: 2000,
             queueLimit: 5
         })
-    }
-
-    const execute = async (query, data) => {
-        await connect().query(query, data, function (err, rows, fields) {
-            if (err) {console.log(err)}
-            console.log(rows)
+        this.pool.getConnection((error, success) => {
+            if(error){ console.log("[-] Mysql connection error"); process.exit(1);} else {
+                console.log("[+] Mysql online")
+            }
         })
     }
 
+    async query(sql, params) {
+        return new Promise((resolve, reject) => {
+            this.pool.query(sql, params, (error, results) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(results);
+                }
+            })
+        })
+    }
 
-    return {
-        execute
+    async close() {
+        return new Promise((resolve, reject) => {
+            this.pool.end((error) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve()
+                }
+            })
+        })
     }
 }
 
-module.exports = database()
+module.exports = new DatabaseServer;

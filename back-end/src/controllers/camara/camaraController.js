@@ -1,35 +1,34 @@
 const database = require("../../adapters/databaseServer")
 
-const camaraControllerDel = (req, res) => {
-    const {nome} = req.body
+module.exports = class CamaraController {
+    static async get(req, res) {
+        const {nome_camara} = req.body
 
-    res.send({nome: nome})
-}
+        try {
+            const resultado = await database.query("SELECT * from camaras where nome=?", [nome_camara])
+            return res.send({sucesso: resultado})
+        } catch (error) {
+            return res.send({erro: "Houve um erro interno, tente novamente."})
+        }
+    }
 
-const camaraControllerGet = (req, res) => {
-    const {nome} = req.body
+    static async post(req, res) {
+        const {nome, presidente, tecnico, telefone, email, endereco, cnpj, logo} = req.body
 
-    res.send({nome: nome})
-}
+        try {
+            await database.query("INSERT INTO camaras (nome, presidente, técnico, telefone, email, endereço, cnpj, logo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", 
+            [nome, presidente, tecnico, telefone, email, endereco, cnpj, logo])
+            return res.send({success: "camara criada"})
+        } catch (error) {
+            return res.send({err: error})
+        }
+    }
 
-const camaraControllerPost = async (req, res) => {
-    const {nome, presidente, tecnico, telefone, email, endereco, cnpj, logo} = req.body
+    static async put(req, res) {
 
-    try {
-        await database.execute("INSERT INTO camaras (nome, presidente, técnico, telefone, email, endereço, cnpj, logo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", 
-        [nome, presidente, tecnico, telefone, email, endereco, cnpj, logo])
-        return res.send({success: "camara criada"})
-    } catch (error) {
-        return res.send({err: "erro no request"})
+    }
+
+    static async del(req, res) {
+        
     }
 }
-
-
-
-const camaraControllerPut = (req, res) => {
-    const {nome} = req.body
-
-    res.send({nome: nome})
-}
-
-module.exports = camaraControllerPost
