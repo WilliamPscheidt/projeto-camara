@@ -1,9 +1,9 @@
 const httpServer = require("../adapters/httpServer")
 
-const CamaraController = require("../controllers/camara/CamaraController")
+const CamaraController = require("../controllers/CamaraController")
 const CamaraValidation = require("../validations/Camara.validation")
 
-const VereadorController = require("../controllers/vereador/vereadorController")
+const VereadorController = require("../controllers/vereadorController")
 const VereadorValidation = require("../validations/Vereador.validation")
 
 const router = () => {

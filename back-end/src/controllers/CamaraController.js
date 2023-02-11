@@ -1,4 +1,4 @@
-const CamaraRepository = require("../../repositories/camara/camara.repositoy")
+const CamaraRepository = require("../repositories/camara.repositoy")
 
 module.exports = class CamaraController {
     static async get(req, res) {

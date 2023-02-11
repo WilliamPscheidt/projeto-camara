@@ -1,4 +1,4 @@
-const database = require("../../adapters/databaseServer")
+const database = require("../adapters/databaseServer")
 
 class VereadoresRepositoy {
     static async buscarDados(nome) {
