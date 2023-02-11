@@ -3,14 +3,21 @@ const httpServer = require("../adapters/httpServer")
 const CamaraController = require("../controllers/CamaraController")
 const CamaraValidation = require("../validations/Camara.validation")
 
-const VereadorController = require("../controllers/vereadorController")
+const VereadorController = require("../controllers/VereadorController")
 const VereadorValidation = require("../validations/Vereador.validation")
 
+const UsuarioController = require("../controllers/UsuarioController")
+const UsuarioValidation = require("../validations/Usuário.validation")
+
 const router = () => {
-    /**httpServer.get("/usuario", usuarioControllerGet)
-    httpServer.post("/usuario", usuarioControllerPost)
-    httpServer.put("/usuario", usuarioControllerPut)
-    httpServer.del("/usuario", usuarioControllerDel)**/
+    httpServer.get("/usuario", UsuarioValidation.validateGetRoute)
+    httpServer.get("/usuario", UsuarioController.get)
+    httpServer.post("/usuario", UsuarioValidation.validatePostRoute)
+    httpServer.post("/usuario", UsuarioController.post)
+    httpServer.put("/usuario", UsuarioValidation.validatePutRoute)
+    httpServer.put("/usuario", UsuarioController.put)
+    httpServer.delete("/usuario", UsuarioValidation.validateDeleteRoute)
+    httpServer.delete("/usuario", UsuarioController.del)
 
     httpServer.get("/vereador", VereadorValidation.validateGetRoute)
     httpServer.get("/vereador", VereadorController.get)

@@ -1,4 +1,4 @@
-const VereadoresRepositoy = require("../repositories/vereadores.repository")
+const VereadoresRepositoy = require("../repositories/Vereadores.repository")
 
 module.exports = class VereadorController {
     static async get(req, res) {
