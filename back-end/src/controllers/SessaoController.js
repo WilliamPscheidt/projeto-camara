@@ -1,18 +1,15 @@
 const SessaoRepositoy = require("../repositories/Sessoes.repositoy")
-const io = require("../adapters/socket")
-const cron = require("node-cron");
-
-const agendarSessao = (camara, minuto, dia, mes, hora) => {
-    console.log("Agendando uma sessão..")
-    cron.schedule(`${minuto} ${hora} ${dia} ${mes} *`, () => {
-        console.log("Enviando cronjob")
-        io.emit(camara,"OK DEU CERTO")
-    });
-} 
+const AgendarSessoes = require("../services/AgendarSessoes")
 
 class SessaoController {
     static async get() {
+        const {nome_camara} = req.body
 
+        try {
+            return res.send({sucesso: SessaoRepositoy.buscarDados(nome_camara)})
+        } catch (error) {
+            return res.send({error: error})
+        }
     }
 
     static async post(req, res) {
@@ -24,17 +21,20 @@ class SessaoController {
             return res.send({ error: error })
         }
 
-        agendarSessao(camara, minuto, dia, mes, hora)
+        AgendarSessoes.cronjob(camara, minuto, dia, mes, hora)
 
         res.send({ sucesso: "sessão inserida" })
     }
 
-    static async put() {
-
-    }
-
     static async delete() {
+        const {id} = req.body
 
+        try {
+            await SessaoRepositoy.deletarDados(id)
+            return res.send({sucesso: "sessão removida"})
+        } catch (error) {
+            return res.send({error: error})
+        }
     }
 }
 

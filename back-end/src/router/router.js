@@ -30,10 +30,9 @@ const router = () => {
     httpServer.delete("/vereador", VereadorValidation.validateDeleteRoute)
     httpServer.delete("/vereador", VereadorController.del)
 
-    //httpServer.get("/sessao", sessaoControllerGet)
+    httpServer.get("/sessao", SessaoController.get)
     httpServer.post("/sessao", SessaoController.post)
-    //httpServer.put("/sessao", sessaoControllerPut)
-    //httpServer.del("/sessao", sessaoControllerDel)
+    httpServer.delete("/sessao", SessaoController.delete)
 
     httpServer.get("/camara", CamaraValidation.validateGetRoute)
     httpServer.get("/camara", CamaraController.get)
