@@ -6,9 +6,9 @@ class VereadoresRepositoy {
         [nome])
     }
 
-    static async inserirDados(nome, partido, camara) {
-        return await database.query("INSERT INTO vereadores (nome, partido, camara) VALUES (?, ?, ?)", 
-        [nome, partido, camara])
+    static async inserirDados(nome, partido, camara, link_avatar) {
+        return await database.query("INSERT INTO vereadores (nome, partido, camara, link_avatar) VALUES (?, ?, ?, ?)", 
+        [nome, partido, camara, link_avatar])
     }
 
     static async atualizarDados(nome_atual, nome, partido, camara) {

@@ -1,6 +1,7 @@
 const express = require('express')
 const http = require("http")
 const helmet = require("helmet");
+const upload = require("../services/SalvarFotos")
 
 class HttpServer {
     constructor() {
@@ -23,6 +24,10 @@ class HttpServer {
 
     async post(path, handler) {
         this.express.post(path, handler)
+    }
+
+    async postWithImage(path, handler) {
+        this.express.post(path, upload.single("avatar"), handler)
     }
 
     async delete(path, handler) {

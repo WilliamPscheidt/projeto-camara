@@ -12,10 +12,10 @@ module.exports = class VereadorController {
     }
 
     static async post(req, res) {
-        const {nome, partido, camara} = req.body;
+        const {nome, partido, camara} = req.query;
 
         try {
-            await VereadoresRepositoy.inserirDados(nome, partido, camara)
+            await VereadoresRepositoy.inserirDados(nome, partido, camara, req.file.filename)
             return res.send({success: "vereador inserido com sucesso"})
         } catch (error) {
             return res.send({err: error})

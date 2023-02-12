@@ -8,7 +8,7 @@ class VereadorValidation {
     }
 
     static validatePostRoute(req, res, next) {
-        const {nome, partido, camara} = req.body
+        const {nome, partido, camara} = req.query
 
         if(!nome, !partido, !camara) {
             return res.send({"erro": "Você precisa informar todos os dados: nome, partido, camara"})

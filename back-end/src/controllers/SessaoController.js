@@ -13,7 +13,7 @@ class SessaoController {
     }
 
     static async post(req, res) {
-        const { camara, tipo, pauta, dia, mes, hora, minuto, descrição, orador } = req.body;
+        const { camara, tipo, pauta, dia, mes, hora, minuto, descrição, orador} = req.body;
 
         try {
             await SessaoRepositoy.inserirDados(camara, tipo, pauta, dia, mes, hora, minuto, descrição, orador)

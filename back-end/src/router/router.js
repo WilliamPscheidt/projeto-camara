@@ -1,5 +1,7 @@
 const httpServer = require("../adapters/httpServer")
 
+const path = require("path");
+
 const CamaraController = require("../controllers/CamaraController")
 const CamaraValidation = require("../validations/Camara.validation")
 
@@ -10,6 +12,8 @@ const UsuarioController = require("../controllers/UsuarioController")
 const UsuarioValidation = require("../validations/Usuário.validation")
 
 const SessaoController = require("../controllers/SessaoController")
+
+const upload = require("../services/SalvarFotos")
 
 const router = () => {
     httpServer.get("/usuario", UsuarioValidation.validateGetRoute)
@@ -24,7 +28,7 @@ const router = () => {
     httpServer.get("/vereador", VereadorValidation.validateGetRoute)
     httpServer.get("/vereador", VereadorController.get)
     httpServer.post("/vereador", VereadorValidation.validatePostRoute)
-    httpServer.post("/vereador", VereadorController.post)
+    httpServer.postWithImage("/vereador", VereadorController.post)
     httpServer.put("/vereador", VereadorValidation.validatePutRoute)
     httpServer.put("/vereador", VereadorController.put)
     httpServer.delete("/vereador", VereadorValidation.validateDeleteRoute)
@@ -42,6 +46,10 @@ const router = () => {
     httpServer.put("/camara", CamaraController.put)
     httpServer.delete("/camara", CamaraValidation.validateDeleteRoute)
     httpServer.delete("/camara", CamaraController.del)
+
+    httpServer.get("/avatar/:filename", (req, res) => {
+        res.sendFile(path.join(__dirname, "../uploads/", req.params.filename));
+    });
 }
 
 module.exports = router
