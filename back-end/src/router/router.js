@@ -9,6 +9,8 @@ const VereadorValidation = require("../validations/Vereador.validation")
 const UsuarioController = require("../controllers/UsuarioController")
 const UsuarioValidation = require("../validations/Usuário.validation")
 
+const SessaoController = require("../controllers/SessaoController")
+
 const router = () => {
     httpServer.get("/usuario", UsuarioValidation.validateGetRoute)
     httpServer.get("/usuario", UsuarioController.get)
@@ -28,10 +30,10 @@ const router = () => {
     httpServer.delete("/vereador", VereadorValidation.validateDeleteRoute)
     httpServer.delete("/vereador", VereadorController.del)
 
-    /**httpServer.get("/sessao", sessaoControllerGet)
-    httpServer.post("/sessao", sessaoControllerPost)
-    httpServer.put("/sessao", sessaoControllerPut)
-    httpServer.del("/sessao", sessaoControllerDel)**/
+    //httpServer.get("/sessao", sessaoControllerGet)
+    httpServer.post("/sessao", SessaoController.post)
+    //httpServer.put("/sessao", sessaoControllerPut)
+    //httpServer.del("/sessao", sessaoControllerDel)
 
     httpServer.get("/camara", CamaraValidation.validateGetRoute)
     httpServer.get("/camara", CamaraController.get)
